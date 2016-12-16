@@ -8,6 +8,7 @@ class drchronoOAuth2(BaseOAuth2):
     """
 
     name = 'drchrono'
+    ID_KEY = 'username'
     AUTHORIZATION_URL = 'https://drchrono.com/o/authorize/'
     ACCESS_TOKEN_URL = 'https://drchrono.com/o/token/'
     ACCESS_TOKEN_METHOD = 'POST'
@@ -15,7 +16,7 @@ class drchronoOAuth2(BaseOAuth2):
     USER_DATA_URL = 'https://drchrono.com/api/users/current'
     EXTRA_DATA = [
         ('refresh_token', 'refresh_token'),
-        ('expires_in', 'expires_in')
+        ('expires_in', 'expires_in'),
     ]
     # TODO: setup proper token refreshing
 
@@ -23,16 +24,19 @@ class drchronoOAuth2(BaseOAuth2):
         """
         Return user details from drchrono account
         """
+        print 111,response
         return {'username': response.get('username'),}
 
     def user_data(self, access_token, *args, **kwargs):
         """
         Load user data from the service
         """
+        print 222,access_token
         return self.get_json(
             self.USER_DATA_URL,
             headers=self.get_auth_header(access_token)
         )
 
     def get_auth_header(self, access_token):
+        print 333,access_token
         return {'Authorization': 'Bearer {0}'.format(access_token)}

@@ -1,0 +1,9 @@
+{% if patients_list %}
+    <ul>
+    {% for patients in patients_list %}
+        <li>{{ patients.date_of_birth }},{{patients.first_name}} {{patients.last_name}}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No patients are available.</p>
+{% endif %}
