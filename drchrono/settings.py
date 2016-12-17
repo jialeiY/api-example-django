@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'drchrono',
+    'birth_reminder',
     'social.apps.django_app.default',
     'social_auth_drchrono'
 )
@@ -112,4 +113,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 #drchrono API
-LOGIN_REDIRECT_URL='/welcome/'
+LOGIN_REDIRECT_URL='/home/'
