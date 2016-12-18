@@ -113,4 +113,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 #drchrono API
-LOGIN_REDIRECT_URL='/home/'
+LOGIN_REDIRECT_URL='/birth_reminder/'
