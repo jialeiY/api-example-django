@@ -40,7 +40,8 @@ INSTALLED_APPS = (
     'drchrono',
     'birth_reminder',
     'social.apps.django_app.default',
-    'social_auth_drchrono'
+    'social_auth_drchrono',
+    'smart_selects'
 )
 
 MIDDLEWARE_CLASSES = (

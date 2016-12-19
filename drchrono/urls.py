@@ -9,4 +9,5 @@ urlpatterns = [
 
     url(r'', include('social.apps.django_app.urls', namespace='social')),
     url(r'^birth_reminder/', include('birth_reminder.urls',namespace="birth_reminder")),
+    url(r'^chaining/',include('smart_selects.urls'))
 ]

@@ -1,7 +1,12 @@
+{%load custm_filter%}
 {% if patients_list %}
     <ul>
     {% for patients in patients_list %}
-        <li>{{ patients.date_of_birth }},{{patients.first_name}} {{patients.last_name}}</li>
+        <li>{{patients.last_name}}
+        {% for c in column %}
+        {{patients | get_key:c}},
+        {%endfor%}
+        </li>
     {% endfor %}
     </ul>
 {% else %}

@@ -12,6 +12,12 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='DoctorMessageMapping',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+            ],
+        ),
+        migrations.CreateModel(
             name='UserInfo',
             fields=[
                 ('doctor_id', models.IntegerField(serialize=False, primary_key=True)),
@@ -19,5 +25,15 @@ class Migration(migrations.Migration):
                 ('send_time', models.TimeField()),
                 ('message_id', models.ForeignKey(to='birth_reminder.Messages')),
             ],
+        ),
+        migrations.AddField(
+            model_name='doctormessagemapping',
+            name='doctor_id',
+            field=models.ForeignKey(to='birth_reminder.UserInfo'),
+        ),
+        migrations.AddField(
+            model_name='doctormessagemapping',
+            name='message_id',
+            field=models.ForeignKey(to='birth_reminder.Messages'),
         ),
     ]
