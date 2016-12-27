@@ -11,31 +11,31 @@ from .models import Messages
 from django.template import RequestContext
 def home(request):
     user_info=drchronoAPI.get_user_info(request.user)
-    if request.method=='POST':
-
-        message_id=request.POST['id_message_name']
-        print message_id
-        print Messages.objects.get(pk=message_id)
-        message=Messages.objects.get(pk=message_id)
-
-        form=MessageForm(initial={'message_name':message.id},instance=message,user=user_info)
-        print {'id_message_subject':message.message_subject,
-        'id_message_text':message.message_text}
-        return JsonResponse({'id_message_subject':message.message_subject,
-        'id_message_text':message.message_text})
-        #return render(request,'birth_reminder/home.html',{'form':form})
-        #if not form.is_valid():
-            #print 'wrong',form
-            #form=MessageForm(instance=user_info.message,user=user_info)
-        #else:
-            #print 'corret',form
-    else:   
-        form=MessageForm(instance=user_info.message,user=user_info)
-    print request
+    message=user_info.message
+    print message.id
+    form=MessageForm(initial={'message_name':message.id},
+                instance=user_info.message,user=user_info)
+    
     return render(request,'birth_reminder/home.html',{'form':form})
 
+def update_message(request):
+    message_id=request.POST['id_message_name']
+    message=Messages.objects.get(pk=message_id)   
+    return JsonResponse({'id_message_subject':message.message_subject,
+        'id_message_text':message.message_text})
+        
+def save_message(request):
 
-
+    user_info=drchronoAPI.get_user_info(request.user) 
+    form=MessageForm(request.POST,user=user_info)
+    if form.is_valid():
+        user_info.message=Messages.objects.get(pk=request.POST['message_name'])
+        user_info.save()
+        print 'correct',request.POST['message_name']
+    else:
+        print 'wrong',form
+    return HttpResponseRedirect('/birth_reminder/')    
+    
 def patient_list(request):
     column=['last_name','date_of_first_appointment','id',
     'first_name','middle_name','date_of_birth','email',

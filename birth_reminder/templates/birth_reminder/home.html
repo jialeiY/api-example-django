@@ -3,12 +3,16 @@
 <html>
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
 </head>
 <body>
-<form action="{% url 'birth_reminder:home' %}" method="post",id="message_form">
+<form action="/birth_reminder/save_message/" method="post",id="message_form">
     {% csrf_token%}
-    {{form}}
-    <input type="submit" value="Submit" />
+    {{form.as_p}}
+    <input type="reset" value="Reset" />
+    <input type="submit" value="Save" />
+
 </form>
 
 <script src="{% static "birth_reminder/message.js" %}"></script>

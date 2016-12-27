@@ -9,7 +9,6 @@ class SettingForm(forms.Form):
 class MessageForm(ModelForm):
     
     def __init__(self,*args,**kwargs):
-        print 'messageForm'
         self.user=kwargs.pop('user')
         super(MessageForm,self).__init__(*args,**kwargs)
         self.fields['message_name'].widget=Select(choices=drchronoAPI.get_user_message_name(self.user))

@@ -3,7 +3,7 @@ $("#id_message_name").on("change",function(){
         console.log($('#id_message_name').val());
         $.ajax({
             type:'POST',
-            url:'/birth_reminder/',
+            url:'/birth_reminder/update_message/',
             data:{
                 id_message_name:$('#id_message_name').val(),
                 csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
