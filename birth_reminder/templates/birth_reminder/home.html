@@ -7,11 +7,19 @@
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
 </head>
 <body>
-<form action="/birth_reminder/save_message/" method="post",id="message_form">
+
+<!--<form action="/birth_reminder/save_message/" method="post",id="message_form">
+    {% csrf_token%}
+    {{form1.as_p}}
+    <input type="reset" value="Reset" />
+    <input type="submit" value="Save" />
+
+</form>-->
+<form action="/birth_reminder/" method="post",id="user_form">
     {% csrf_token%}
     {{form.as_p}}
     <input type="reset" value="Reset" />
-    <input type="submit" value="Save" />
+    <input type="submit" value="Submit" />
 
 </form>
 

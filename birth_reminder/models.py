@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class MessagesManager(models.Manager):
@@ -17,19 +17,20 @@ class Messages(models.Model):
 DEFAULT_MESSAGE_ID=Messages.objects.get(pk=1)
 
 class UserInfoManager(models.Manager):
-    def create_user(self,doctor_id,username,send_time='08:00:00',message=DEFAULT_MESSAGE_ID,is_active=True):
-        user=self.create(doctor_id=doctor_id,username=username,send_time=send_time,
+    def create_user(self,user,doctor_id,send_time='08:00:00',message=DEFAULT_MESSAGE_ID,is_active=True):
+        user=self.create(user=user,doctor_id=doctor_id,send_time=send_time,
         message=message,is_active=is_active)
         return user
         
 class UserInfo(models.Model):
-    doctor_id=models.IntegerField(primary_key=True)
-    username=models.CharField(max_length=200)
+    user=models.OneToOneField(User,primary_key=True)
+    doctor_id=models.IntegerField()
+    #username=models.CharField(max_length=200)
     send_time=models.TimeField()
     message=models.ForeignKey(Messages)
     is_active=models.BooleanField()
     def __str__(self):
-        return self.username
+        return self.user.username
     objects=UserInfoManager()
 
     """

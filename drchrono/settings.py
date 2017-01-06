@@ -9,9 +9,17 @@ https://docs.djangoproject.com/en/1.8/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
+from __future__ import absolute_import,unicode_literals
+
+import os
+
+BROKER_URL = 'amqp://guest:guest@localhost//'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_RESULT_BACKEND = 'db+sqlite:///results.sqlite'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER='json'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -106,6 +114,15 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+#email_server
+#EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST='localhost'
+EMAIL_PORT=25
+EMAIL_HOST_USER=''
+EMAIL_HOST_PASSWORD=''
 
 
 # Static files (CSS, JavaScript, Images)

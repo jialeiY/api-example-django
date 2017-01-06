@@ -2,9 +2,6 @@ from django import forms
 from django.forms import ModelForm,Select
 from .models import Messages,UserInfo,DoctorMessageMapping
 import drchronoAPI
-class SettingForm(forms.Form):
-    message=forms.CharField()
-    send_time=forms.TimeField()
     
 class MessageForm(ModelForm):
     
@@ -16,4 +13,14 @@ class MessageForm(ModelForm):
     class Meta:
         model=Messages
         fields=['message_name','message_subject','message_text']
-        #widgets={'message_name':Select(choices=drchronoAPI.get_user_message_name(user))}
+class UserInfoForm(ModelForm):
+    msg_subject=forms.CharField(max_length=200)
+    msg_text=forms.CharField(max_length=1000,widget=forms.Textarea)
+    def __init__(self,*args,**kwargs):
+        super(UserInfoForm,self).__init__(*args,**kwargs)
+        self.fields['message'].choices=drchronoAPI.get_user_message_name(kwargs['instance'])
+    
+    class Meta:
+        model=UserInfo
+        fields=['is_active','send_time','message']
+

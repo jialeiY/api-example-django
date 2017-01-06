@@ -4,22 +4,23 @@ from social.apps.django_app.default.models import UserSocialAuth
 import requests
 from django.template import loader
 from django.shortcuts import render,render_to_response
-from forms import SettingForm,MessageForm
+from forms import MessageForm,UserInfoForm
 from django.core.urlresolvers import reverse
 import drchronoAPI
 from .models import Messages
 from django.template import RequestContext
 def home(request):
+    if request.POST:
+        print 222222,request.POST
     user_info=drchronoAPI.get_user_info(request.user)
-    message=user_info.message
-    print message.id
-    form=MessageForm(initial={'message_name':message.id},
-                instance=user_info.message,user=user_info)
-    
-    return render(request,'birth_reminder/home.html',{'form':form})
+    message=user_info.message 
+    Usrfrom=UserInfoForm(initial={'msg_subject':message.message_subject,
+    'msg_text':message.message_text},instance=user_info)
+    return render(request,'birth_reminder/home.html',{'form':Usrfrom})
 
 def update_message(request):
-    message_id=request.POST['id_message_name']
+    #print request.POST
+    message_id=request.POST['id_message']
     message=Messages.objects.get(pk=message_id)   
     return JsonResponse({'id_message_subject':message.message_subject,
         'id_message_text':message.message_text})
