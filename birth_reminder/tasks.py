@@ -4,6 +4,7 @@ from .drchronoAPI import get_patient_list,get_doctor_info
 from .models import UserInfo
 from datetime import date,datetime
 from django.core.mail import send_mail
+
 def compare_date(birthd,now=date.today()):
     if not birthd:
         return False
@@ -22,10 +23,13 @@ def combine_text(template,patient,doctor):
     replace_string['age']=compute_age(patient['date_of_birth'])
     #print replace_string
     return template.format(**replace_string)
- 
+
+    
 @shared_task
 def send_email():
+    print 'send email'
     users=UserInfo.objects.filter(is_active=True)
+    print 'users',users
     for user in users:
         patient_list=get_patient_list(user.user)
         message=user.message

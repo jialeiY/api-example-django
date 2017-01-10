@@ -1,0 +1,14 @@
+#id_msg_subject {
+    width:523px;
+}
+
+form {
+    width: 620px;
+    padding: 10px;
+    margin: auto;
+}
+
+#id_msg_text {
+    margin-top: 10px;
+    width:100%;
+}

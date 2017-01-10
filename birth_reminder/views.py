@@ -15,7 +15,7 @@ def home(request):
     user_info=drchronoAPI.get_user_info(request.user)
     message=user_info.message 
     Usrfrom=UserInfoForm(initial={'msg_subject':message.message_subject,
-    'msg_text':message.message_text},instance=user_info)
+    'msg_text':message.message_text},instance=user_info,user=user_info)
     return render(request,'birth_reminder/home.html',{'form':Usrfrom})
 
 def update_message(request):
@@ -27,12 +27,13 @@ def update_message(request):
         
 def save_message(request):
 
-    user_info=drchronoAPI.get_user_info(request.user) 
-    form=MessageForm(request.POST,user=user_info)
+    user_info=drchronoAPI.get_user_info(request.user)
+    form=UserInfoForm(request.POST,user=user_info)
     if form.is_valid():
-        user_info.message=Messages.objects.get(pk=request.POST['message_name'])
+        if form.cleaned_data['is_active']==True:
+            user_info.message=form.cleaned_data['message']
+        user_info.is_active=form.cleaned_data['is_active']
         user_info.save()
-        print 'correct',request.POST['message_name']
     else:
         print 'wrong',form
     return HttpResponseRedirect('/birth_reminder/')    

@@ -15,12 +15,23 @@ class MessageForm(ModelForm):
         fields=['message_name','message_subject','message_text']
 class UserInfoForm(ModelForm):
     msg_subject=forms.CharField(max_length=200)
-    msg_text=forms.CharField(max_length=1000,widget=forms.Textarea)
+    msg_text=forms.CharField(max_length=1000,widget=forms.Textarea())
     def __init__(self,*args,**kwargs):
+        self.user=kwargs.pop('user')
         super(UserInfoForm,self).__init__(*args,**kwargs)
-        self.fields['message'].choices=drchronoAPI.get_user_message_name(kwargs['instance'])
+        self.fields['message'].choices=drchronoAPI.get_user_message_name(self.user)
     
     class Meta:
         model=UserInfo
         fields=['is_active','send_time','message']
 
+    def is_valid(self):
+        valid=super(UserInfoForm,self).is_valid()
+        
+        if not valid:
+            data=self.cleaned_data
+            if data.get('is_active')==False:
+                valid=True
+        
+            
+        return valid
