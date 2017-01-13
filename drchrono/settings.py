@@ -15,21 +15,20 @@ from celery.schedules import crontab
 import os
 import djcelery
 
-#djcelery.setup_loader()
+
+#celery set up for scheduled email sending
 
 BROKER_URL = 'amqp://guest:guest@localhost//'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER='json'
-#CELERYBEAT_SCHEDULER="djcelery.schedulers.DatabaseScheduler"
 CELERYBEAT_SCHEDULE={
                 'send_email':{
                     'task':'birth_reminder.tasks.send_email',
                     'schedule':crontab(minute='*/30')},
 }
 
-#CELERY_TIMEZONE='America/Los_Angeles'
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -128,8 +127,8 @@ USE_TZ = True
 
 
 #email_server
-#EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend' # for production
+EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend' #for debug only
 EMAIL_HOST='localhost'
 EMAIL_PORT=1025
 EMAIL_HOST_USER=''
@@ -147,3 +146,5 @@ STATICFILES_DIRS = (
 
 #drchrono API
 LOGIN_REDIRECT_URL='/birth_reminder/'
+SOCIAL_AUTH_DRCHRONO_KEY='J34kib5b8vnhaHfjBZ2ahoWrROl76O8P0hqbCBTr'
+SOCIAL_AUTH_DRCHRONO_SECRET='ugm8aWRlCWgOUVvQwoLh8cWjAj17wT3qN1e8gFXYTCGks3T2AWMiv8OTqYWXOjn5UAD5pj8TWHqKoKJD08TU1stxY9uCJiDRJwqNbMU0rWtDBa0EheOAQWJX0EEObEIC'

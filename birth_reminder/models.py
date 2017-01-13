@@ -43,8 +43,3 @@ class DoctorMessageMapping(models.Model):
     
     objects=DoctorMessageMappingManager()
     
-    
-  
-#message=Messages.objects.create_message('default_1','1111111')
-#message=Messages.objects.create_message('default_2','222222222222222')
-#message=Messages.objects.create_message('default_3','33333333333333')

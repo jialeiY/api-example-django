@@ -18,7 +18,7 @@ def get_patient_list(user):
 
         data=requests.get(patients_url,headers=headers).json()
         patients_url=data['next']
-        print data['results'][0]
+        #print data['results'][0]
         for p in data['results']:            
             new_data={}
             for c in column:
