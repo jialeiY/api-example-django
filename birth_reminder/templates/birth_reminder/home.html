@@ -9,8 +9,10 @@
 <body>
 
 
+
 <form action="/birth_reminder/save_message/" method="post",id="user_form">
     {% csrf_token%}
+    <a href="/logout"> Log out </a>
     {{form.as_p}}
     <div id="id_tip">* Please use:{last_name},{first_name},{middle_name},{date_of_birth},{email},{gender},{age} to
     represent patient's information.</div>

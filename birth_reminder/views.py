@@ -9,6 +9,7 @@ from django.core.urlresolvers import reverse
 import drchronoAPI
 from .models import Messages
 from django.template import RequestContext
+
 def home(request):
 
     user_info=drchronoAPI.get_user_info(request.user)

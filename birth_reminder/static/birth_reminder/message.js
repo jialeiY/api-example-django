@@ -9,8 +9,7 @@ $("#id_message").on("change",function(){
                 csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
             },
             success:function(response){
-                //$('#id_message_text').val(response.id_message_text);
-                //$('#id_message_subject').val(response.id_message_subject);
+
                 $('#id_msg_subject').val(response.id_message_subject);
                 $('#id_msg_text').val(response.id_message_text);
             }
@@ -59,4 +58,8 @@ $(document).ready(function(){
         else
             enableForm();
     });
+});
+
+$("#id_logout").on("click",function(){
+    console.log(1111);
 });

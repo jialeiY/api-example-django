@@ -1,6 +1,10 @@
 # Create your views here.
-from django.http import HttpResponse,HttpResponseRedirect
-from social.apps.django_app.default.models import UserSocialAuth
-import requests
-from django.template import loader
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.contrib.auth import logout
+
+
+
+def logout_view(request):
+    logout(request)
+
+    return HttpResponseRedirect('/')
