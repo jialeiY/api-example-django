@@ -1,8 +1,16 @@
-<!DOCTYPE html>
+{% load staticfiles %}
+<!doctype html>
 <html>
+  <head><link rel="stylesheet" href="{% static "drchrono/styles.css" %}">
+  </head>
   <body>
+    <div class="container">
+    <h1>
+    Welcome to use birthday reminder system:
     <a href="{% url 'social:begin' 'drchrono' %}">
-      drchrono OAuth
+      Please login!
     </a>
+    </h1>
+    </div>
   </body>
 </html>

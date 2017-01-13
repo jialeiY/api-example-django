@@ -12,8 +12,11 @@
 <form action="/birth_reminder/save_message/" method="post",id="user_form">
     {% csrf_token%}
     {{form.as_p}}
+    <div id="id_tip">* Please use:{last_name},{first_name},{middle_name},{date_of_birth},{email},{gender},{age} to
+    represent patient's information.</div>
+    <div>
     <input type="reset" value="Reset" />
-    <input type="submit" value="Save" />
+    <input type="submit" value="Save" /></div>
 
 </form>
 

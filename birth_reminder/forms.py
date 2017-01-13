@@ -2,29 +2,27 @@ from django import forms
 from django.forms import ModelForm,Select
 from .models import Messages,UserInfo,DoctorMessageMapping
 import drchronoAPI
-    
-class MessageForm(ModelForm):
-    
-    def __init__(self,*args,**kwargs):
-        self.user=kwargs.pop('user')
-        super(MessageForm,self).__init__(*args,**kwargs)
-        self.fields['message_name'].widget=Select(choices=drchronoAPI.get_user_message_name(self.user))
-    
-    class Meta:
-        model=Messages
-        fields=['message_name','message_subject','message_text']
+
+TIME_CHOICES=[]
+for h in xrange(24):
+    for m in ['00','30']:
+        t='{:02d}:{}:00'.format(h,m)
+        TIME_CHOICES.append((t,t[:-3]))
+   
+        
 class UserInfoForm(ModelForm):
     msg_subject=forms.CharField(max_length=200)
     msg_text=forms.CharField(max_length=1000,widget=forms.Textarea())
-    def __init__(self,*args,**kwargs):
-        self.user=kwargs.pop('user')
-        super(UserInfoForm,self).__init__(*args,**kwargs)
-        self.fields['message'].choices=drchronoAPI.get_user_message_name(self.user)
+    #def __init__(self,*args,**kwargs):
+        #self.user=kwargs.pop('user')
+        #super(UserInfoForm,self).__init__(*args,**kwargs)
+        #self.fields['message'].choices=drchronoAPI.get_user_message_name(self.user)
     
     class Meta:
         model=UserInfo
-        fields=['is_active','send_time','message']
-
+        fields=['is_active','send_time']
+        widgets={'send_time':forms.Select(choices=TIME_CHOICES)}
+        
     def is_valid(self):
         valid=super(UserInfoForm,self).is_valid()
         

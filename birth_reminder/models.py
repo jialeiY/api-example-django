@@ -3,8 +3,9 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class MessagesManager(models.Manager):
-    def create_message(self,message_name,message_text):
-        message=self.create(message_name=message_name,message_text=message_text)
+    def create_message(self,message_name,message_subject,message_text):
+        message=self.create(message_name=message_name,
+            message_subject=message_subject,message_text=message_text)
         return message
 class Messages(models.Model):
     message_name=models.CharField(max_length=200)
@@ -14,10 +15,9 @@ class Messages(models.Model):
         return self.message_name
     objects=MessagesManager()
 
-DEFAULT_MESSAGE_ID=Messages.objects.get(pk=1)
 
 class UserInfoManager(models.Manager):
-    def create_user(self,user,doctor_id,send_time='08:00:00',message=DEFAULT_MESSAGE_ID,is_active=True):
+    def create_user(self,user,doctor_id,message,send_time='08:00:00',is_active=True):
         user=self.create(user=user,doctor_id=doctor_id,send_time=send_time,
         message=message,is_active=is_active)
         return user
@@ -33,15 +33,6 @@ class UserInfo(models.Model):
         return self.user.username
     objects=UserInfoManager()
 
-    """
-    first_name=models.CharField(max_length=200)
-    last_name=models.CharField(max_length=200)
-    suffix=models.CharField(max_length=200)
-    office_phone=models.CharField(max_length=200)
-    email=models.CharField(max_length=200)
-    job_title=models.CharField(max_length=200)
-    website=models.CharField(max_length=200)
-    """
 class DoctorMessageMappingManager(models.Manager):
     def create_mapping(self,user,message):
         mapping=self.create(user=user,message=message)

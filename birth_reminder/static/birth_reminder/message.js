@@ -38,6 +38,7 @@ $("#id_is_active").on("change",function(){
             enableForm();
 });
 
+
 window.onload=function(){
     //console.log($("#id_is_active").is(":checked"));
     if(!$("#id_is_active").is(":checked"))

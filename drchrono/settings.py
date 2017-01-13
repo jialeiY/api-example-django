@@ -13,17 +13,20 @@ from __future__ import absolute_import,unicode_literals
 from celery.schedules import crontab
 #import birth_reminder.tasks
 import os
+import djcelery
+
+#djcelery.setup_loader()
 
 BROKER_URL = 'amqp://guest:guest@localhost//'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER='json'
-
+#CELERYBEAT_SCHEDULER="djcelery.schedulers.DatabaseScheduler"
 CELERYBEAT_SCHEDULE={
                 'send_email':{
                     'task':'birth_reminder.tasks.send_email',
-                    'schedule':crontab(hour=8,minute=0)},
+                    'schedule':crontab(minute='*/30')},
 }
 
 #CELERY_TIMEZONE='America/Los_Angeles'
@@ -137,6 +140,10 @@ EMAIL_HOST_PASSWORD=''
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+
+)
 
 #drchrono API
 LOGIN_REDIRECT_URL='/birth_reminder/'

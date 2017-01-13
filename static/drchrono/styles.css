@@ -1,0 +1,12 @@
+.container{
+    height:200px;
+    width:600px;
+    margin: 150px auto;
+}
+
+
+
+h1{
+    font: 40px/1;
+    text-align:center;
+}

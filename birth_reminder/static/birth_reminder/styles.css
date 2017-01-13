@@ -2,13 +2,21 @@
     width:523px;
 }
 
+
+
 form {
     width: 620px;
     padding: 10px;
     margin: auto;
+    background: #eee;
 }
 
 #id_msg_text {
     margin-top: 10px;
     width:100%;
+}
+
+#id_tip{
+    color :black;
+    padding-bottom:10px;
 }
